@@ -21,11 +21,11 @@ const Loader = styled.div`
     opacity: 1;
     animation: ${bounce} 0.6s infinite alternate;
 
-    &:nth-child(2) {
+    &:nth-of-type(2) {
       animation-delay: 0.2s;
     }
 
-    &:nth-child(3) {
+    &:nth-of-type(3) {
       animation-delay: 0.4s;
     }
   }

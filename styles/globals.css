@@ -19,8 +19,6 @@ html, body {
   height: 100%;
   font-size: 16px;
   font-family: "Mulish", sans-serif;
-  background: var(--dark);
-  color: var(--light);
 }
 /*
   Typographic tweaks!
@@ -30,7 +28,7 @@ html, body {
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  padding: 1rem}
+}
 /*
   6. Improve media defaults
 */

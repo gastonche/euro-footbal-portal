@@ -12,7 +12,6 @@ export default function handler(
 ) {
   const query = (req.query.query as string) || 'select * from matches';
   const matchingQuery = queries[query];
-  console.log(matchingQuery, query, req.body);
 
   if(!matchingQuery) {
     res.status(404).json([]);

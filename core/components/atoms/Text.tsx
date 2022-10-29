@@ -29,7 +29,7 @@ function sizeAndWeight({ size = "regular", weight = "regular" }: TextProps) {
   return css`
     font-size: ${sizes[size]};
     font-weight: ${weights[weight]};
-    line-height: 1;
+    line-height: 1.5;
   `;
 }
 
