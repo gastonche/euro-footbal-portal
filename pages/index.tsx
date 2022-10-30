@@ -27,3 +27,7 @@ export default function Home() {
     </StyledWrapper>
   );
 }
+
+export function getServerSideProps() {
+  return { props: {} };
+}
