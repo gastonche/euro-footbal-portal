@@ -79,7 +79,7 @@ const Sidebar = ({History, Templates}: SidebarProps) => {
   const [showHistory, setShowHistory] = useState(false);
   return (
     <StyledBar>
-      <Header color="light">Euro football quant</Header>
+      <Header color="light">Euro football Records</Header>
       <Content>
         <Tabs showHistory={showHistory}>
           <Text

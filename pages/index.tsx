@@ -1,14 +1,11 @@
 import styled from "@emotion/styled";
+import Image from "next/image";
 import Sidebar from "../core/components/molecules/Sidebar";
 import MainView from "../core/components/organisms/MainView";
 import SidebarQueryHistory from "../core/components/organisms/SidebarQueryHistory";
 import SidebarQueryTemplates from "../core/components/organisms/SidebarQueryTemplates";
 
 const StyledWrapper = styled.div`
-  background: url("/images/background.jpg");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
   padding: 1rem;
   display: flex;
   height: 100vh;
@@ -19,6 +16,7 @@ const StyledWrapper = styled.div`
 export default function Home() {
   return (
     <StyledWrapper>
+      <Image src="/images/background.jpg" alt="background image" fill />
       <Sidebar
         History={() => <SidebarQueryHistory />}
         Templates={() => <SidebarQueryTemplates />}

@@ -21,6 +21,7 @@ const StyledWrapper = styled.div`
   padding: 1rem;
   border-radius: 0.7rem;
   background-color: var(--light);
+  z-index: 2;
 `;
 
 const StyledHeader = styled.header`
