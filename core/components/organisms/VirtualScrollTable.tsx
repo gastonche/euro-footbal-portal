@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Match from "../../domains/Match";
-import MatchRow, { MatchRowHeader } from "./MatchRow";
+import MatchRow, { MatchGroupRow, MatchRowHeader, RowData } from "./MatchRow";
 
 const Wrapper = styled.div`
   height: 100%;
@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-function getChunks(matches: Match[], chunkSize: number): Array<Match[]> {
+function getChunks(matches: RowData[], chunkSize: number): Array<RowData[]> {
   const R = [];
   for (let i = 0; i < matches.length; i += chunkSize)
     R.push(matches.slice(i, i + chunkSize));
@@ -21,11 +21,11 @@ const VirtualScrollTable = ({
   matches,
   rowHeight = 50,
 }: {
-  matches: Match[];
+  matches: RowData[];
   rowHeight?: number;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [chunks, setChunks] = useState<Array<Match[]>>([]);
+  const [chunks, setChunks] = useState<Array<RowData[]>>([]);
   const [chunkSize, setChunkSize] = useState(0);
   const [observer, setObserver] = useState<IntersectionObserver | null>(null);
   const [currentChunk, setCurrentChunk] = useState(0);
@@ -78,13 +78,17 @@ const VirtualScrollTable = ({
           className="chunk"
           ref={chunkRef}
           key={index}
-          style={{ height: `${chunkSize * rowHeight}px` }}
+          style={{ height: `${chunk.length * rowHeight}px` }}
           data-index={index}
         >
           {[currentChunk, currentChunk + 1, currentChunk - 1].includes(index) &&
-            chunk.map((match, i) => (
-              <MatchRow key={`${index}-${i}`} match={match} />
-            ))}
+            chunk.map((match, i) =>
+              "type" in match ? (
+                <MatchGroupRow group={match.data} />
+              ) : (
+                <MatchRow key={`${index}-${i}`} match={match as Match} />
+              )
+            )}
         </div>
       ))}
     </Wrapper>

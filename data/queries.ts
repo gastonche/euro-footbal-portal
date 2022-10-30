@@ -21,6 +21,4 @@ const queryTemplatesMap: { [k: string]: QueryTemplate } = queryTemplates.reduce(
   {} as { [k: string]: QueryTemplate }
 );
 
-console.log(queryTemplatesMap);
-
 export default queryTemplatesMap;

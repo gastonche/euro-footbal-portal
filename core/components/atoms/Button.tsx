@@ -27,12 +27,12 @@ function applySize({ size = "regular" }: ButtonProps) {
 
 function applyColor({ color = "accent" }: ButtonProps) {
   const colors = {
-    primary: "var(--white)",
-    secondary: "var(--white)",
-    accent: "var(--white)",
-    dark: "var(--white)",
+    primary: "var(--light)",
+    secondary: "var(--light)",
+    accent: "var(--light)",
+    dark: "var(--light)",
     white: "var(--dark)",
-    highlight: "var(--white)",
+    highlight: "var(--light)",
   };
 
   return css`

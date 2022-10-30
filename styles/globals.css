@@ -68,7 +68,3 @@ p, h1, h2, h3, h4, h5, h6 {
   --open-sidebar-width: 300px;
   --closed-sidebar-width: 100px;
 }
-
-button + button {
-  margin-left: 0.5rem;
-}

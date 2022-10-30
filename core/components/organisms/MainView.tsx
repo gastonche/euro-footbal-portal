@@ -1,16 +1,19 @@
 import styled from "@emotion/styled";
 import { FormEvent, useState } from "react";
 import Match from "../../domains/Match";
+import useLoadingProcess from "../../hooks/useLoadingProcess";
 import useStore, {
   addHistory,
   setQuery,
   setResults,
 } from "../../hooks/useStore";
-import { fetchQueryResults } from "../../services/api";
+import useTableControls from "../../hooks/useTableControls";
+import { download, fetchQueryResults } from "../../services/api";
 import Button from "../atoms/Button";
 import TextArea from "../atoms/Editor";
 import Text from "../atoms/Text";
 import LoadingWrapper from "../molecules/LoadingWrapper";
+import MainViewActions from "./MainViewActions";
 import VirtualScrollTable from "./VirtualScrollTable";
 
 const StyledWrapper = styled.div`
@@ -57,14 +60,22 @@ const ShowingFor = styled(Text)`
 const MainView = () => {
   const { query, result } = useStore();
   const [isLoading, setIsLoading] = useState(false);
+  const loader = useLoadingProcess();
+  const controls = useTableControls((result?.data as Match[]) || []);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    setIsLoading(true);
     e.preventDefault();
+    setIsLoading(true);
+    loader.show();
     const queryResults = await fetchQueryResults(query);
     setResults(queryResults);
     addHistory(queryResults);
     setIsLoading(false);
+    loader.hide();
+  };
+
+  const save = async (type: string) => {
+    result?.query && download(result.query, type);
   };
 
   return (
@@ -89,7 +100,7 @@ const MainView = () => {
           </Button>
         </StyledFlex>
       </StyledHeader>
-      <StyledFlex>
+      <StyledFlex as="div">
         <div>
           <Text size="medium" as="h1" weight="bold">
             Query results
@@ -103,7 +114,11 @@ const MainView = () => {
             </Text>
           )}
         </div>
-        <div>filters</div>
+        <MainViewActions
+          matches={(result?.data as Match[]) || []}
+          disabled={!result || result?.data.length === 0}
+          onDownload={save}
+        />
       </StyledFlex>
       {!result?.query && (
         <StyledEmptyResults>
@@ -121,7 +136,7 @@ const MainView = () => {
       {((result?.query && result?.data.length) || isLoading) && (
         <StyledMain>
           <LoadingWrapper isLoading={isLoading}>
-            <VirtualScrollTable matches={(result?.data as Match[]) || []}  />
+            <VirtualScrollTable matches={controls.groupedMatches} />
           </LoadingWrapper>
         </StyledMain>
       )}
