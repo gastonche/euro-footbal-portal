@@ -9,12 +9,13 @@ import useTableControls from "../../hooks/useTableControls";
 import { kFormatter, timestampToDateTimeString } from "../../services/utils";
 import Text from "../atoms/Text";
 
-const StyledQueryItem = styled.div`
+const StyledQueryItem = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   padding: 0.5rem;
   position: relative;
+  margin-bottom: 0.75rem;
   cursor: pointer;
 
   & > * {
@@ -30,7 +31,7 @@ const StyledQueryItem = styled.div`
     width: 100%;
     height: 100%;
     background-color: var(--light-05);
-    opacity: 0;
+    opacity: ${({ active }) => (active ? 0.3 : 0)};
     border-radius: 0.5rem;
     transition: opacity 0.3s linear;
   }
@@ -59,20 +60,20 @@ const StyledQuery = styled(Text)`
 `;
 
 const SidebarQueryHistory = () => {
-  const { history } = useStore();
-  const {setGroupBy, setFilterBy} = useTableControls([]);
+  const { history, result } = useStore();
+  const { setGroupBy } = useTableControls([]);
 
   const set = (query: QueryResult) => {
     setResults(query);
     setQuery(query.query);
     setGroupBy("");
-    setFilterBy([]);
   };
 
   return (
     <>
       {history.map((historyItem) => (
         <StyledQueryItem
+          active={result?.query == historyItem.query}
           key={historyItem.query}
           onClick={() => set(historyItem as QueryResult)}
         >

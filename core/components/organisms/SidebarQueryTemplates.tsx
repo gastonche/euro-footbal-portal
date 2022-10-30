@@ -1,7 +1,12 @@
 import styled from "@emotion/styled";
 import { queryTemplates } from "../../../data/queries";
+import Match from "../../domains/Match";
 import QueryTemplate from "../../domains/QueryTemplate";
-import useStore, { setQuery, setResults } from "../../hooks/useStore";
+import useStore, {
+  addHistory,
+  setQuery,
+  setResults,
+} from "../../hooks/useStore";
 import Text from "../atoms/Text";
 
 const StyledQueryTemplateItem = styled.div<{ active: boolean }>`
@@ -43,6 +48,8 @@ const StyledQuery = styled(Text)`
   color: var(--highlight);
 `;
 
+const testQuery = "Select * from matches";
+
 const SidebarQueryTemplates = () => {
   const { query } = useStore();
 
@@ -50,6 +57,20 @@ const SidebarQueryTemplates = () => {
     setQuery(template.query);
     setResults(undefined);
   }
+
+  function loadAll() {
+    import("../../../data/Full_Kaggle_Dataset.json").then((data) => {
+      setQuery("select * from matches");
+      const result = {
+        query: testQuery,
+        data: data.default as Match[],
+        timestamp: Date.now(),
+      };
+      setResults(result);
+      addHistory(result);
+    });
+  }
+
   return (
     <>
       {queryTemplates.map((queryTemplate) => (
@@ -64,6 +85,15 @@ const SidebarQueryTemplates = () => {
           <StyledQuery size="small">{queryTemplate.query}</StyledQuery>
         </StyledQueryTemplateItem>
       ))}
+      <StyledQueryTemplateItem active={query === testQuery} onClick={loadAll}>
+        <Text size="small" weight="bold">
+          All Data
+        </Text>
+        <Text size="small" color="dark-05">
+          Different behaviour meant for testing the largest dataset
+        </Text>
+        <StyledQuery size="small">{testQuery}</StyledQuery>
+      </StyledQueryTemplateItem>
     </>
   );
 };

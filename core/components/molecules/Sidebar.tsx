@@ -33,6 +33,8 @@ const Content = styled.section`
   height: calc(100% - 100px);
   border-radius: 0.5rem;
   margin-top: 5px;
+  position: relative;
+  overflow: auto;
 `;
 
 const Tabs = styled.div<{showHistory: boolean}>`
@@ -42,6 +44,10 @@ const Tabs = styled.div<{showHistory: boolean}>`
   gap: 10px;
   position: relative;
   margin-bottom: 1rem;
+  background-color: var(--light);
+  position: sticky;
+  top: 0;
+  z-index: 9;
 
   &::after {
     content: "";
