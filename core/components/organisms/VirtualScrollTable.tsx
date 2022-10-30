@@ -40,10 +40,11 @@ const VirtualScrollTable = ({
     setObserver(
       new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index =
-              +(entry.target as HTMLDivElement).getAttribute("data-index") || 0;
-            setCurrentChunk(index);
+          const attr = (entry.target as HTMLDivElement).getAttribute(
+            "data-index"
+          );
+          if (entry.isIntersecting && attr != null) {
+            setCurrentChunk(+attr);
           }
         });
       }, options)
