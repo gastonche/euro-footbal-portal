@@ -89,7 +89,7 @@ const useTableControls = (matches: Match[]) => {
         acc[key] = [];
       }
 
-      if (!filterBy.length || filterBy.includes(key)) {
+      if (!filterBy.length || filterBy.includes(`${key}`)) {
         acc[key].push(match);
       }
 
