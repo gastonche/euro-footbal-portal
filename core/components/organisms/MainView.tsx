@@ -75,7 +75,8 @@ const MainView = () => {
   };
 
   const save = async (type: string) => {
-    result?.query && download(result.query, type);
+    result?.query &&
+      download(result.query, type, (result?.data as Match[]) || []);
   };
 
   return (

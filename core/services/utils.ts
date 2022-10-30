@@ -1,81 +1,90 @@
 export function timestampToDateTimeString(timestamp: number): string {
-  return new Intl.DateTimeFormat('en-GB', { dateStyle: 'long', timeStyle: 'short' }).format(new Date(timestamp));
+  return new Intl.DateTimeFormat("en-GB", {
+    dateStyle: "long",
+    timeStyle: "short",
+  }).format(new Date(timestamp));
 }
 
 export const excelExportColumns = [
   {
     header: "Home Team",
     width: 20,
-    key: "Home_Team"
+    key: "Home_Team",
   },
   {
     header: "Away Team",
     width: 20,
-    key: "Away_Team"
+    key: "Away_Team",
   },
   {
     header: "Home Score",
     width: 10,
-    key: "Home_Score"
+    key: "Home_Score",
   },
   {
     header: "Away Score",
     width: 10,
-    key: "Away_Score"
+    key: "Away_Score",
   },
   {
     header: "Home Penalties",
     width: 10,
-    key: "Home_Penalties"
+    key: "Home_Penalties",
   },
   {
     header: "Away Penalties",
     width: 10,
-    key: "Away_Penalties"
+    key: "Away_Penalties",
   },
   {
     header: "Date",
     width: 10,
-    key: "Date"
+    key: "Date",
   },
   {
     header: "Time",
     width: 10,
-    key: "Time"
+    key: "Time",
   },
   {
     header: "Home Points",
     width: 10,
-    key: "Home_Points"
+    key: "Home_Points",
   },
   {
     header: "Away Points",
     width: 10,
-    key: "Away_Points"
+    key: "Away_Points",
   },
   {
     header: "Country",
     width: 20,
-    key: "Country"
+    key: "Country",
   },
   {
     header: "Season",
     width: 10,
-    key: "season"
+    key: "season",
   },
   {
     header: "Competition",
     width: 20,
-    key: "Competition"
+    key: "Competition",
   },
   {
     header: "Home AET Score",
     width: 10,
-    key: "Home_Score_AET"
+    key: "Home_Score_AET",
   },
   {
     header: "Away AET Score",
     width: 10,
-    key: "Away_Score_AET"
+    key: "Away_Score_AET",
   },
 ];
+
+export function kFormatter(num: number) {
+  return Math.abs(num) > 999
+    ? Math.sign(num) * +(Math.abs(num) / 1000).toFixed(1) + "k"
+    : Math.sign(num) * Math.abs(num);
+}

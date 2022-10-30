@@ -78,27 +78,29 @@ const useTableControls = (matches: Match[]) => {
     [sort.dir == 1 ? "asc" : "desc"]
   );
 
-  const grouped = useMemo(
-    () =>
-      matches.reduce((acc: { [k: string]: Match[] }, match: Match) => {
-        const key = (groupBy && match[groupBy]) || "";
-        if (!acc[key]) {
-          acc[key] = [];
-        }
+  const grouped = useMemo(() => {
+    if (!groupBy) {
+      return {0: matches};
+    }
 
-        if (!filterBy.length || filterBy.includes(key)) {
-          acc[key].push(match);
-        }
+    return matches.reduce((acc: { [k: string]: Match[] }, match: Match) => {
+      const key = (groupBy && match[groupBy]) || "";
+      if (!acc[key]) {
+        acc[key] = [];
+      }
 
-        return acc;
-      }, {}),
-    [matches, groupBy, filterBy]
-  );
+      if (!filterBy.length || filterBy.includes(key)) {
+        acc[key].push(match);
+      }
+
+      return acc;
+    }, {});
+  }, [matches, groupBy, filterBy]);
 
   const groupedMatches: RowData[] = useMemo(
     () =>
       !groupBy
-        ? matches
+        ? grouped[0]
         : Object.keys(grouped).reduce((acc, key) => {
             if (grouped[key].length) {
               const data: RowData[] = [
@@ -109,7 +111,7 @@ const useTableControls = (matches: Match[]) => {
             }
             return acc;
           }, [] as RowData[]),
-    [grouped, matches, groupBy]
+    [grouped, groupBy]
   );
 
   const filters = useMemo(() => Object.keys(grouped), [grouped]);

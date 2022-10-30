@@ -5,7 +5,8 @@ import useStore, {
   setQuery,
   setResults,
 } from "../../hooks/useStore";
-import { timestampToDateTimeString } from "../../services/utils";
+import useTableControls from "../../hooks/useTableControls";
+import { kFormatter, timestampToDateTimeString } from "../../services/utils";
 import Text from "../atoms/Text";
 
 const StyledQueryItem = styled.div`
@@ -39,6 +40,17 @@ const StyledQueryItem = styled.div`
   }
 `;
 
+const StyledCount = styled(Text)`
+  text-align: right;
+
+  span {
+    padding: 1px 5px;
+    background: var(--dark);
+    border-radius: 21px;
+    color: var(--light);
+  }
+`;
+
 const StyledQuery = styled(Text)`
   background-color: #ffa4a457;
   padding: 3px 5px;
@@ -48,10 +60,13 @@ const StyledQuery = styled(Text)`
 
 const SidebarQueryHistory = () => {
   const { history } = useStore();
+  const {setGroupBy, setFilterBy} = useTableControls([]);
 
   const set = (query: QueryResult) => {
     setResults(query);
     setQuery(query.query);
+    setGroupBy("");
+    setFilterBy([]);
   };
 
   return (
@@ -65,6 +80,9 @@ const SidebarQueryHistory = () => {
             {timestampToDateTimeString(historyItem.timestamp)}
           </Text>
           <StyledQuery size="small">{historyItem.query}</StyledQuery>
+          <StyledCount size="small" color="dark-05">
+            <span>{kFormatter(historyItem.data.length)}</span> results
+          </StyledCount>
         </StyledQueryItem>
       ))}
     </>
