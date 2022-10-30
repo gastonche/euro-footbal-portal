@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { queryTemplates } from "../../../data/queries";
 import Match from "../../domains/Match";
 import QueryTemplate from "../../domains/QueryTemplate";
+import useLoadingProcess from "../../hooks/useLoadingProcess";
 import useStore, {
   addHistory,
   setQuery,
@@ -52,6 +53,7 @@ const testQuery = "Select * from matches";
 
 const SidebarQueryTemplates = () => {
   const { query } = useStore();
+  const loader = useLoadingProcess();
 
   function selectTemplate(template: QueryTemplate) {
     setQuery(template.query);
@@ -59,6 +61,7 @@ const SidebarQueryTemplates = () => {
   }
 
   function loadAll() {
+    loader.show();
     import("../../../data/Full_Kaggle_Dataset.json").then((data) => {
       setQuery("select * from matches");
       const result = {
@@ -68,6 +71,7 @@ const SidebarQueryTemplates = () => {
       };
       setResults(result);
       addHistory(result);
+      loader.hide();
     });
   }
 
