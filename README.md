@@ -1,7 +1,7 @@
 
 # [Euro Football Records](https://euro-footbal-portal.vercel.app/)
 
-![home page](public/images/Screen%20Shot%202022-10-31%20at%2010.49.29.png)
+![home page](public/images/Screen%20Shot%202022-10-31%20at%2010.50.23.png)
 
 We've obtained a dataset of european football matches from the year 2001 to the year 2022. 
 The aim of the project is to provide a means for various users like data analysts to be able to query this data and get direct/quick resuts but 
@@ -34,7 +34,7 @@ The application is deployed using [Vercel](//vercel.com)
 
 Page speed is `0.9s` as measured by [Page speed insights](https://pagespeed.web.dev/report?url=https%3A%2F%2Feuro-footbal-portal.vercel.app%2F&form_factor=desktop)
 
-![page speed](public/images//Screen%20Shot%202022-10-31%20at%2010.50.23.png)
+![page speed](public/images//Screen%20Shot%202022-10-31%20at%2010.49.29.png)
 
 ### Optimizations
 
