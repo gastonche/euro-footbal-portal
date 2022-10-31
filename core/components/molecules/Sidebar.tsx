@@ -53,7 +53,7 @@ const Tabs = styled.div<{showHistory: boolean}>`
     content: "";
     height: 3px;
     border-radius: 0 0 3px 3px;
-    background: var(--accent);
+    background: var(--secondary);
     width: 100px;
     position: absolute;
     top: 120%;
@@ -85,7 +85,7 @@ const Sidebar = ({History, Templates}: SidebarProps) => {
           <Text
             as="span"
             weight={showHistory? "medium": "bold"}
-            color={!showHistory ? "accent" : "dark"}
+            color={!showHistory ? "secondary" : "dark"}
             onClick={() => setShowHistory(false)}
           >
             Query Templates
@@ -93,7 +93,7 @@ const Sidebar = ({History, Templates}: SidebarProps) => {
           <Text
             as="span"
             weight={!showHistory? "medium": "bold"}
-            color={showHistory ? "accent" : "dark"}
+            color={showHistory ? "secondary" : "dark"}
             onClick={() => setShowHistory(true)}
           >
             Query History
